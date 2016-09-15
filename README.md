@@ -1,1 +1,11 @@
 # OCRFlow
+
+The network at this example is composed by a three convolutional layers–all followed by a hidden layer–, a relu and a fully connected layer at the end. Finally, the softmax function gets the probability of occurrence to each class.
+
+This  OCR draft is able to classify  grayscale images with a size of 28x28 pixels into ten classes: uppercase letters from A to J. The solution has been divided in three programs:
+  1. Training preparation:  This script compiles the training samples into a big “pickle” file, that the next script will use to train.
+  2. Training: This program uses the pickle files to train the neural network in 3000 steps. At the end it trials the just trained  network with a test dataset. The trained data (weight matrixes and bias vectors) is serialized and stored in a file.
+  3. Classification: Execution of the OCR on a specific image.
+  
+## Training
+The training script executes a loop for training the neural network. The training is done in groups called “batches”, it is using a bunch of samples each time. The batch size has been set to 10 samples per iteration. At each iteration, the values of the weight matrixes are changed depending on the loss, which measures the error rate. At the end of each iteration, a small test called validation is made in order to know the accuracy of the network so far. “Minibatch accuracy” refers to the precision rate resulting using training characters, while “Validation accuracy” means the accuracy rate gotten using the smaller dataset, the one meant for training. This allows the script to know how it is doing and change the values in the matrixes according to it. It is important to use for validation different samples than for training, since it means to trial the network with data that it has never seen. Otherwise, the accuracy results would not be reliable and the training could not work. At the end of training, the script performs a test using data from the small/test dataset. The size of the test has been set to 3000 samples. This means that the network is used to classify 3000 characters. This results in an accuracy percentage that tells how good the training was. In this case, the accuracy obtained at test is 92.4% using the notMNIST dataset.
